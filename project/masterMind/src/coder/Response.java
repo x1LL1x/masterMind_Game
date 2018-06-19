@@ -2,20 +2,43 @@ package coder;
 
 import game.playTable;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Response {
+    private ArrayList<playTable.Farbe> codeSet = new ArrayList<>(4);                                                                        // random CodeSET generiert vom Computer
+    private ArrayList<playTable.resp_Code> answer = new ArrayList<>(4);
+
     private boolean isColor, isPosition, isSetCode;
-    private ArrayList<playTable.Farbe> guess;
 
 
     public Response() {
-        ArrayList<playTable.Farbe> guessSet = (ArrayList<playTable.Farbe>) playTable.getPlGuess().clone();
-
-
+        this.setRandomSet();
     }
 
-    public void responseCode(){
-        System.out.println(guess.get(0));
+    private void setRandomSet() {
+        Random rndCol = new Random();
+        for (int i = 0; i < 4; ++i) {
+            this.codeSet.add(playTable.Farbe.values()[rndCol.nextInt(playTable.Farbe.values().length)]);
+        }
     }
 
+    public ArrayList<playTable.Farbe> getRandomSet() {
+        return codeSet;
+    }
+
+
+    public ArrayList<playTable.resp_Code> getResponse() {
+        ArrayList<playTable.Farbe> pl_gSet = (ArrayList<playTable.Farbe>) playTable.getPlGuess().clone();
+        this.answer.clear();
+        for (int j = 0; j < codeSet.size(); ++j) {
+            for (int i = 0; i < pl_gSet.size(); ++i) {
+                if ((i == j) && (pl_gSet.get(j) == codeSet.get(i))) {
+                    this.answer.add(playTable.resp_Code.schwarz);
+                } else if (pl_gSet.get(j) == codeSet.get(i)) {
+                    this.answer.add(playTable.resp_Code.weiss);
+                }
+            }
+        }
+        return this.answer;
+    }
 }

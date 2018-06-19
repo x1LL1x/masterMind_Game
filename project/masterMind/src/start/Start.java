@@ -1,5 +1,6 @@
 package start;
 
+import coder.Response;
 import game.playTable;
 
 import java.sql.SQLOutput;
@@ -7,10 +8,7 @@ import java.util.ArrayList;
 
 public class Start {
     public static void main(String[] args) {
-
-        for(int i=0; i<7; ++i) {
-            playTable.makeGuess();
-        }
+        playTable.processGame();
     }
 }
 
@@ -22,4 +20,15 @@ public class Start {
 //                           " " + playTable.getPlGuess().get(2) + " " + playTable.getPlGuess().get(3));
 //        System.out.println(playTable.guessNum + ". Versuch\n");
 //
+//        Response resp1 = new Response();
+//        ArrayList<playTable.Farbe> respCol = null;
+//        respCol = (ArrayList<playTable.Farbe>) resp1.codeSet.clone();
+//        System.out.println("Coder: ");
+//        for(playTable.Farbe f : respCol) { System.out.print(f + " "); }
 //
+//
+//
+//
+
+
+

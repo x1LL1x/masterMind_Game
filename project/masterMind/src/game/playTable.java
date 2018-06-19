@@ -1,12 +1,15 @@
 package game;
 
+import coder.Response;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class playTable{
     public enum Farbe {rot, blau, gruen, gelb, lila, braun}
+    public enum resp_Code{weiss, schwarz}
 
-    public static int guessNum=0;
+    private static int guessNum=0;
     private static ArrayList<Farbe> guessSet;
     private static ArrayList<Farbe> response;
 
@@ -15,19 +18,39 @@ public class playTable{
         Scanner scan = new Scanner(System.in);
         System.out.println("Bitte wählen Sie 4 Farben aus diesen 6 verschiedenen aus: [rot] [blau] [gruen] [gelb] [lila] [braun] ");
 
-        for(int i=0; i<4; ++i) {
+        for(int i=0; i<4; ++i) {                                                                                         //Spieler gibt 4 Farben ein
             Farbe f = Farbe.valueOf(scan.next());
             color.add(f);
         }
 
-        Spieler s = new Spieler(color.get(0), color.get(1), color.get(2), color.get(3));
-        guessSet = (ArrayList<Farbe>) s.getGuess().clone();
+        Spieler player_Guess = new Spieler(color.get(0), color.get(1), color.get(2), color.get(3));
+        guessSet = (ArrayList<Farbe>) player_Guess.getGuess().clone();
         System.out.println(++guessNum + ". Versuch:");;
         System.out.print("playerSET: ");
 
         for (Farbe f : guessSet) {
             System.out.print("[" + f + "]" + " ");
+        } System.out.println();
+    }
+
+    public static void processGame(){
+        Response respRef = new Response();
+        ArrayList<Farbe> codeSet = (ArrayList<Farbe>) respRef.getRandomSet().clone();
+        ArrayList<resp_Code> answer = new ArrayList<>(4);
+
+        System.out.print("Code: ");
+        for(Farbe f : codeSet) {
+            System.out.print(f + " ");
         } System.out.println("\n");
+
+        for(int i=0; i<7; ++i){
+            makeGuess();
+            answer = (ArrayList<resp_Code>) respRef.getResponse().clone();
+            System.out.print("Antwort: ");
+            for(resp_Code rc : answer) {
+                System.out.print("[" + rc + "]" + " ");
+            } System.out.println("\n");
+        }
     }
 
     public static ArrayList<Farbe> getPlGuess(){
