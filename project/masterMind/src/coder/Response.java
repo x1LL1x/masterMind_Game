@@ -32,9 +32,9 @@ public class Response {
         this.answer.clear();
         for (int j = 0; j < codeSet.size(); ++j) {
             for (int i = 0; i < pl_gSet.size(); ++i) {
-                if ((i == j) && (pl_gSet.get(j) == codeSet.get(i))) {
+                if ((i == j) && (codeSet.get(j) == pl_gSet.get(i))) {
                     this.answer.add(playTable.resp_Code.schwarz);
-                } else if (pl_gSet.get(j) == codeSet.get(i)) {
+                } else if ((i!=j) && (codeSet.get(j) == pl_gSet.get(i))) {
                     this.answer.add(playTable.resp_Code.weiss);
                 }
             }
